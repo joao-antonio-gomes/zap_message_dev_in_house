@@ -1,0 +1,214 @@
+{
+  "messages": [
+    {
+      "channel": "email",
+      "trigger": "criou_chave_pix",
+      "timer": "11:00",
+      "message": "Olá, vimos que você abriu sua conta, que tal fazer seu primeiro pix?",
+      "created_at": "12/9/2021 18:40:58",
+      "id": 1
+    },
+    {
+      "channel": "email",
+      "trigger": "alterou_dados_pessois",
+      "timer": "12:00",
+      "message": "Confirmamos a alteração dos seus dados! Qualquer dúvida entre em contato conosco",
+      "created_at": "12/9/2021 21:25:1",
+      "id": 4
+    },
+    {
+      "channel": "whatsapp",
+      "trigger": "deletou_chave_pix",
+      "timer": "14:00",
+      "message": "Sua chave pix foi deletada com sucesso!",
+      "created_at": "12/9/2021 21:26:12",
+      "id": 5
+    },
+    {
+      "channel": "whatsapp",
+      "trigger": "fez_pix",
+      "timer": "18:40",
+      "message": "Essa mensagem é um teste",
+      "created_at": "14/9/2021 15:37:58",
+      "id": 6
+    }
+  ],
+  "channels": [
+    {
+      "id": 111,
+      "name": "email"
+    },
+    {
+      "id": 222,
+      "name": "whatsapp"
+    },
+    {
+      "id": 333,
+      "name": "sms"
+    }
+  ],
+  "triggers": [
+    {
+      "id": 1,
+      "name": "abertura_conta"
+    },
+    {
+      "id": 2,
+      "name": "fez_pix"
+    },
+    {
+      "id": 3,
+      "name": "recarregou_celular"
+    },
+    {
+      "id": 4,
+      "name": "alterou_dados_pessois"
+    },
+    {
+      "id": 5,
+      "name": "consultou_saldo"
+    },
+    {
+      "id": 6,
+      "name": "fex_transferencia_outro_banco"
+    },
+    {
+      "id": 7,
+      "name": "deletou_chave_pix"
+    },
+    {
+      "id": 8,
+      "name": "criou_chave_pix"
+    },
+    {
+      "id": 9,
+      "name": "falou_com_atendente"
+    }
+  ],
+  "transacoes_pix": [
+    {
+      "date": "01/01/2021",
+      "amount": "21"
+    },
+    {
+      "date": "02/01/2021",
+      "amount": "24"
+    },
+    {
+      "date": "03/01/2021",
+      "amount": "29"
+    },
+    {
+      "date": "04/01/2021",
+      "amount": "35"
+    },
+    {
+      "date": "05/01/2021",
+      "amount": "31"
+    },
+    {
+      "date": "06/01/2021",
+      "amount": "43"
+    },
+    {
+      "date": "07/01/2021",
+      "amount": "54"
+    },
+    {
+      "date": "08/01/2021",
+      "amount": "59"
+    },
+    {
+      "date": "09/01/2021",
+      "amount": "51"
+    },
+    {
+      "date": "10/01/2021",
+      "amount": "62"
+    },
+    {
+      "date": "11/01/2021",
+      "amount": "58"
+    },
+    {
+      "date": "12/01/2021",
+      "amount": "51"
+    },
+    {
+      "date": "13/01/2021",
+      "amount": "47"
+    },
+    {
+      "date": "14/01/2021",
+      "amount": "61"
+    },
+    {
+      "date": "15/01/2021",
+      "amount": "32"
+    },
+    {
+      "date": "16/01/2021",
+      "amount": "37"
+    },
+    {
+      "date": "17/01/2021",
+      "amount": "49"
+    },
+    {
+      "date": "18/01/2021",
+      "amount": "45"
+    },
+    {
+      "date": "19/01/2021",
+      "amount": "50"
+    },
+    {
+      "date": "20/01/2021",
+      "amount": "71"
+    },
+    {
+      "date": "21/01/2021",
+      "amount": "22"
+    },
+    {
+      "date": "22/01/2021",
+      "amount": "37"
+    },
+    {
+      "date": "23/01/2021",
+      "amount": "33"
+    },
+    {
+      "date": "24/01/2021",
+      "amount": "45"
+    },
+    {
+      "date": "25/01/2021",
+      "amount": "48"
+    },
+    {
+      "date": "26/01/2021",
+      "amount": "61"
+    },
+    {
+      "date": "27/01/2021",
+      "amount": "35"
+    },
+    {
+      "date": "28/01/2021",
+      "amount": "32"
+    },
+    {
+      "date": "29/01/2021",
+      "amount": "50"
+    },
+    {
+      "date": "30/01/2021",
+      "amount": "43"
+    },
+    {
+      "date": "31/01/2021",
+      "amount": "57"
+    }
+  ]
+}
