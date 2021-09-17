@@ -141,7 +141,8 @@ const EditModal = (props) => {
                 date.getSeconds()].join(':')
     }
 
-    const atualizarMensagem = async () => {
+    const atualizarMensagem = async (e) => {
+        e.preventDefault()
         setFilter({...filter, atualizado_em: formataData(new Date)})
         messageSchema.validate(filter, {abortEarly: false})
             .then(res => {
@@ -197,7 +198,7 @@ const EditModal = (props) => {
                 }}
             >
                 <Fade in={open}>
-                    <div className={classes.paper}>
+                    <form className={classes.paper} onSubmit={atualizarMensagem}>
                         <div className={classes.header}>
                             <HighlightOffIcon className={classes.iconClose}
                                               onClick={cancelaMensagem} />
@@ -280,13 +281,13 @@ const EditModal = (props) => {
                                     Cancelar
                                 </Button>
                                 <Button variant='contained'
-                                        onClick={atualizarMensagem}
+                                        type={'submit'}
                                         color='primary'>
                                     Atualizar
                                 </Button>
                             </div>
                         </div>
-                    </div>
+                    </form>
                 </Fade>
             </Modal>
         </div>

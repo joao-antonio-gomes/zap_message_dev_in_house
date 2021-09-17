@@ -135,7 +135,8 @@ const NewMessageModal = (props) => {
                 date.getSeconds()].join(':')
     }
 
-    const salvarMensagem = async () => {
+    const salvarMensagem = async (e) => {
+        e.preventDefault()
         messageToSave = {
             ...filter,
             message: textArea,
@@ -149,11 +150,11 @@ const NewMessageModal = (props) => {
                         if (res.status === 201) {
                             cancelaMensagem()
                             finishMessageRegister()
-                            dispatch(showSnackBar(true, "Mensagem criada com sucesso", "success"))
+                            dispatch(showSnackBar(true, 'Mensagem criada com sucesso', 'success'))
                         }
                     })
                     .catch(err => {
-                        dispatch(showSnackBar(true, "Houve um erro na conexão com o servidor, tente novamente", "error"))
+                        dispatch(showSnackBar(true, 'Houve um erro na conexão com o servidor, tente novamente', 'error'))
                     })
             })
             .catch(err => {
@@ -199,7 +200,8 @@ const NewMessageModal = (props) => {
                 }}
             >
                 <Fade in={open}>
-                    <div className={classes.paper}>
+                    <form className={classes.paper}
+                          onSubmit={salvarMensagem}>
                         <div className={classes.header}>
                             <HighlightOffIcon className={classes.iconClose}
                                               onClick={cancelaMensagem} />
@@ -284,13 +286,13 @@ const NewMessageModal = (props) => {
                                     Cancelar
                                 </Button>
                                 <Button variant='contained'
-                                        onClick={salvarMensagem}
+                                        type={'submit'}
                                         color='primary'>
                                     Salvar
                                 </Button>
                             </div>
                         </div>
-                    </div>
+                    </form>
                 </Fade>
             </Modal>
         </div>

@@ -104,7 +104,8 @@ const ConfigEditModal = (props) => {
         })
     }
 
-    const atualizaConfig = () => {
+    const atualizaConfig = (e) => {
+        e.preventDefault()
         configSchema.validate(config, {abortEarly: false})
             .then(res => {
                 api.put(`/${type}/${item.id}`, config)
@@ -159,7 +160,7 @@ const ConfigEditModal = (props) => {
             }}
         >
             <Fade in={open}>
-                <div className={classes.paper}>
+                <form className={classes.paper} onSubmit={atualizaConfig}>
                     <div className={classes.header}>
                         <HighlightOffIcon
                             onClick={handleClose}
@@ -189,13 +190,13 @@ const ConfigEditModal = (props) => {
                                 Cancelar
                             </Button>
                             <Button variant='contained'
-                                    onClick={atualizaConfig}
+                                    type={'submit'}
                                     color='primary'>
                                 Atualizar
                             </Button>
                         </div>
                     </div>
-                </div>
+                </form>
             </Fade>
         </Modal>
     )

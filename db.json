@@ -23,14 +23,6 @@
       "message": "Sua chave pix foi deletada com sucesso!",
       "created_at": "12/9/2021 21:26:12",
       "id": 5
-    },
-    {
-      "channel": "whatsapp",
-      "trigger": "fez_pix",
-      "timer": "18:40",
-      "message": "Essa mensagem é um teste",
-      "created_at": "14/9/2021 15:37:58",
-      "id": 6
     }
   ],
   "channels": [

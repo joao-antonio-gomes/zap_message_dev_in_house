@@ -70,7 +70,7 @@ const MessagesModal = (props) => {
                         <Typography variant={'h6'}>Você tem certeza que deseja deletar essa mensagem?</Typography>
                         <br/>
                         <Typography variant={'body1'}>Mensagem:</Typography>
-                        <Typography variant={'body2'}>{message.mensagem}</Typography>
+                        <Typography variant={'body2'}>{message.message}</Typography>
                         <br/>
                         <Typography variant={'body1'}>Canal:</Typography>
                         <Typography variant={'body2'}>{message.channel}</Typography>

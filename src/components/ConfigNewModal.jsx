@@ -102,7 +102,8 @@ const ConfigNewModal = (props) => {
         })
     }
 
-    const atualizaConfig = () => {
+    const atualizaConfig = (e) => {
+        e.preventDefault()
         configSchema.validate(config, {abortEarly: false})
             .then(res => {
                 api.post(`/${type}/`, config)
@@ -157,7 +158,7 @@ const ConfigNewModal = (props) => {
             }}
         >
             <Fade in={open}>
-                <div className={classes.paper}>
+                <form className={classes.paper} onSubmit={atualizaConfig}>
                     <div className={classes.header}>
                         <HighlightOffIcon
                             onClick={handleClose}
@@ -187,13 +188,13 @@ const ConfigNewModal = (props) => {
                                 Cancelar
                             </Button>
                             <Button variant='contained'
-                                    onClick={atualizaConfig}
+                                    type={'submit'}
                                     color='primary'>
                                 Criar Novo
                             </Button>
                         </div>
                     </div>
-                </div>
+                </form>
             </Fade>
         </Modal>
     )
