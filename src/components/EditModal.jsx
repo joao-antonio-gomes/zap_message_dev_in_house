@@ -82,6 +82,7 @@ const EditModal = (props) => {
     const [errors, setErrors] = useState([])
     const [channels, setChannels] = useState([])
     const [triggers, setTriggers] = useState([])
+    const [disableButton, setDisableButton] = useState(false)
     const dispatch = useDispatch()
 
     const messageSchema = yup.object().shape({
@@ -144,6 +145,7 @@ const EditModal = (props) => {
     const atualizarMensagem = async (e) => {
         e.preventDefault()
         setFilter({...filter, atualizado_em: formataData(new Date)})
+        setDisableButton(true)
         messageSchema.validate(filter, {abortEarly: false})
             .then(res => {
                 api.put(`/messages/${message.id}`, filter)
@@ -157,6 +159,7 @@ const EditModal = (props) => {
                     .catch(err => {
                         dispatch(showSnackBar(true, "Houve um erro na conexão com o servidor, tente novamente", "error"))
                     })
+                setDisableButton(false)
             })
             .catch(err => {
                 err = JSON.stringify(err)
@@ -169,6 +172,7 @@ const EditModal = (props) => {
                     }
                 })
                 setErrors(erros)
+                setDisableButton(false)
             })
     }
 
@@ -276,12 +280,14 @@ const EditModal = (props) => {
                         <div className={classes.footer}>
                             <div className={classes.buttons}>
                                 <Button variant='contained'
+                                        disabled={disableButton}
                                         onClick={cancelaMensagem}
                                         color='secondary'>
                                     Cancelar
                                 </Button>
                                 <Button variant='contained'
                                         type={'submit'}
+                                        disabled={disableButton}
                                         color='primary'>
                                     Atualizar
                                 </Button>

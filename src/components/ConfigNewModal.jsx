@@ -74,6 +74,7 @@ const ConfigNewModal = (props) => {
     const [errors, setErrors] = useState([])
     const dispatch = useDispatch()
     const triggerOrChannel = type === 'channels' ? 'Canal' : 'Gatilho'
+    const [disableButton, setDisableButton] = useState(false)
 
     const configSchema = yup.object().shape({
         name: yup
@@ -104,6 +105,7 @@ const ConfigNewModal = (props) => {
 
     const atualizaConfig = (e) => {
         e.preventDefault()
+        setDisableButton(true)
         configSchema.validate(config, {abortEarly: false})
             .then(res => {
                 api.post(`/${type}/`, config)
@@ -113,10 +115,13 @@ const ConfigNewModal = (props) => {
                             fetch()
                             dispatch(showSnackBar(true, triggerOrChannel + " adicionado com sucesso", "success"))
                         }
+                        setDisableButton(false)
                     })
                     .catch(err => {
                         dispatch(showSnackBar(true, "Houve um erro na conexão com o servidor, tente novamente", "error"))
+                        setDisableButton(false)
                     })
+                setDisableButton(false)
             })
             .catch(err => {
                 err = JSON.stringify(err)
@@ -129,6 +134,7 @@ const ConfigNewModal = (props) => {
                     }
                 })
                 setErrors(erros)
+                setDisableButton(false)
             })
 
     }
@@ -184,11 +190,13 @@ const ConfigNewModal = (props) => {
                         <div className={classes.buttons}>
                             <Button variant='contained'
                                     onClick={handleClose}
+                                    disabled={disableButton}
                                     color='secondary'>
                                 Cancelar
                             </Button>
                             <Button variant='contained'
                                     type={'submit'}
+                                    disabled={disableButton}
                                     color='primary'>
                                 Criar Novo
                             </Button>

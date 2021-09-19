@@ -95,6 +95,7 @@ const NewMessageModal = (props) => {
     const [errors, setErrors] = useState([])
     const [channels, setChannels] = useState([])
     const [triggers, setTriggers] = useState([])
+    const [buttonDisable, setButtonDisable] = useState(false)
     const dispatch = useDispatch()
 
     useEffect(() => {
@@ -142,22 +143,14 @@ const NewMessageModal = (props) => {
             message: textArea,
             created_at: formataData(new Date),
         }
+        setButtonDisable(true)
 
         messageSchema.validate(messageToSave, {abortEarly: false})
             .then(res => {
-                api.post('/messages/', messageToSave)
-                    .then(res => {
-                        if (res.status === 201) {
-                            cancelaMensagem()
-                            finishMessageRegister()
-                            dispatch(showSnackBar(true, 'Mensagem criada com sucesso', 'success'))
-                        }
-                    })
-                    .catch(err => {
-                        dispatch(showSnackBar(true, 'Houve um erro na conexão com o servidor, tente novamente', 'error'))
-                    })
+                postMensagem()
             })
             .catch(err => {
+                //captura erro do YUP validator
                 err = JSON.stringify(err)
                 err = JSON.parse(err)
                 err = err.inner
@@ -168,9 +161,27 @@ const NewMessageModal = (props) => {
                     }
                 })
                 setErrors(erros)
+                setButtonDisable(false)
             })
 
 
+    }
+
+    const postMensagem = () => {
+        api.post('/messages/', messageToSave)
+            .then(res => {
+                if (res.status === 201) {
+                    cancelaMensagem()
+                    finishMessageRegister()
+                    dispatch(showSnackBar(true, 'Mensagem criada com sucesso', 'success'))
+                }
+                setButtonDisable(false)
+
+            })
+            .catch(err => {
+                dispatch(showSnackBar(true, 'Houve um erro na conexão com o servidor, tente novamente', 'error'))
+                setButtonDisable(false)
+            })
     }
 
     const verifyError = (name) => {
@@ -281,11 +292,13 @@ const NewMessageModal = (props) => {
                         <div className={classes.footer}>
                             <div className={classes.buttons}>
                                 <Button variant='contained'
+                                        disabled={buttonDisable}
                                         onClick={cancelaMensagem}
                                         color='secondary'>
                                     Cancelar
                                 </Button>
                                 <Button variant='contained'
+                                        disabled={buttonDisable}
                                         type={'submit'}
                                         color='primary'>
                                     Salvar

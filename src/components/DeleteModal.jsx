@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import {makeStyles} from '@material-ui/core/styles'
 import Modal from '@material-ui/core/Modal'
 import Backdrop from '@material-ui/core/Backdrop'
@@ -36,19 +36,23 @@ const useStyles = makeStyles((theme) => ({
 const MessagesModal = (props) => {
     const {message, handleClose, open, finishMessageRegister} = props
     const classes = useStyles()
+    const [disableButton, setDisableButton] = useState(false)
     const dispatch = useDispatch()
 
     const deleteMessage = () => {
+        setDisableButton(true)
         api.delete(`/messages/${message.id}`)
             .then(res => {
                 if (res.status === 200) {
                     handleClose()
                     finishMessageRegister()
                     dispatch(showSnackBar(true, "Mensagem deletada com sucesso", "success"))
+                    setDisableButton(false)
                 }
             })
             .catch(err => {
                 dispatch(showSnackBar(true, "Houve um erro na conexão com o servidor, tente novamente", "error"))
+                setDisableButton(false)
             })
     }
 
@@ -84,10 +88,12 @@ const MessagesModal = (props) => {
                             <div className={classes.buttons}>
                                 <Button variant='contained'
                                         onClick={handleClose}
+                                        disabled={disableButton}
                                         color='secondary'>
                                     Cancelar
                                 </Button>
                                 <Button variant='contained'
+                                        disabled={disableButton}
                                         onClick={deleteMessage}
                                         color='primary'>
                                     Deletar

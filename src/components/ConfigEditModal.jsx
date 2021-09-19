@@ -73,6 +73,7 @@ const ConfigEditModal = (props) => {
     const classes = useStyles()
     const [errors, setErrors] = useState([])
     const dispatch = useDispatch()
+    const [disableButton, setDisableButton] = useState(false)
     const triggerOrChannel = type === 'channels' ? 'Canal' : 'Gatilho'
 
     const configSchema = yup.object().shape({
@@ -106,6 +107,7 @@ const ConfigEditModal = (props) => {
 
     const atualizaConfig = (e) => {
         e.preventDefault()
+        setDisableButton(true)
         configSchema.validate(config, {abortEarly: false})
             .then(res => {
                 api.put(`/${type}/${item.id}`, config)
@@ -115,10 +117,13 @@ const ConfigEditModal = (props) => {
                             fetch()
                             dispatch(showSnackBar(true, triggerOrChannel + " atualizado com sucesso", "success"))
                         }
+                        setDisableButton(false)
                     })
                     .catch(err => {
                         dispatch(showSnackBar(true, "Houve um erro na conexão com o servidor, tente novamente", "error"))
+                        setDisableButton(false)
                     })
+                setDisableButton(false)
             })
             .catch(err => {
                 err = JSON.stringify(err)
@@ -131,6 +136,7 @@ const ConfigEditModal = (props) => {
                     }
                 })
                 setErrors(erros)
+                setDisableButton(false)
             })
 
     }
@@ -186,11 +192,13 @@ const ConfigEditModal = (props) => {
                         <div className={classes.buttons}>
                             <Button variant='contained'
                                     onClick={handleClose}
+                                    disabled={disableButton}
                                     color='secondary'>
                                 Cancelar
                             </Button>
                             <Button variant='contained'
                                     type={'submit'}
+                                    disabled={disableButton}
                                     color='primary'>
                                 Atualizar
                             </Button>

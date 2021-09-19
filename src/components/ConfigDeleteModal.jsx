@@ -75,10 +75,12 @@ const ConfigDeleteModal = (props) => {
     const {open, handleClose, item, type, fetch} = props
     const classes = useStyles()
     const dispatch = useDispatch()
+    const [disableButton, setDisableButton] = useState(false)
     const triggerOrChannel = type === 'channels' ? 'Canal' : 'Gatilho'
 
 
     const excluiConfig = () => {
+        setDisableButton(true)
         api.delete(`/${type}/${item.id}`)
             .then(res => {
                 if (res.status === 200) {
@@ -86,10 +88,12 @@ const ConfigDeleteModal = (props) => {
                     fetch()
                     dispatch(showSnackBar(true, triggerOrChannel+ ' excluído com sucesso', 'success'))
                 }
+                setDisableButton(false)
             })
             .catch(err => {
                 console.log({err})
                 dispatch(showSnackBar(true, 'Houve um erro na conexão com o servidor, tente novamente', 'error'))
+                setDisableButton(false)
             })
     }
 
@@ -130,11 +134,13 @@ const ConfigDeleteModal = (props) => {
                         <div className={classes.buttons}>
                             <Button variant='contained'
                                     onClick={handleClose}
+                                    disabled={disableButton}
                                     color='secondary'>
                                 Cancelar
                             </Button>
                             <Button variant='contained'
                                     onClick={excluiConfig}
+                                    disabled={disableButton}
                                     color='primary'>
                                 Excluir
                             </Button>
